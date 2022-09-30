@@ -66,7 +66,7 @@ pipeline{
     stage('Ansible Playbook'){
       steps{
           sh'''
-          cd /var/lib/jenkins/workspace/ansible/ansible_demo
+          # cd /var/lib/jenkins/workspace/ansible/ansible_demo
           /usr/bin/ansible-playbook apache.yml -i dev.inv --private-key webserver_key.pem -u ec2-user
           '''
       }
