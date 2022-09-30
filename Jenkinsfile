@@ -20,9 +20,9 @@ pipeline{
     stage('Prework'){
       steps {
           sh '''
-          # echo $AWSCRIPKEY | base64 -d > webserver_key.pem
-          chmod 0400 webserver_key.pem
-          ls -l webserver_key.pem
+          # echo $AWSCRIPKEY | base64 -d > /tmp/key.pem
+          chmod 0400 /tmp/key.pem
+          ls -l /tmp/key.pem
           export AWS_ACCESS_KEY_ID='AKIATDLZ4TN24KGT6NAV'
           export AWS_SECRET_ACCESS_KEY='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'
           echo -n "" > terra.log
@@ -67,7 +67,7 @@ pipeline{
       steps{
           sh'''
           cd /var/lib/jenkins/workspace/ansible/ansible_demo
-          /usr/bin/ansible-playbook apache.yml -i dev.inv --private-key webserver_key.pem -u ec2-user
+          /usr/bin/ansible-playbook apache.yml -i dev.inv --private-key /tmp/key.pem -u ec2-user
           '''
       }
     }
