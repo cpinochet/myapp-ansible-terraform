@@ -1,0 +1,17 @@
+[0m[1mtls_private_key.webt1_private_key: Refreshing state... [id=1afb0cce421edbb217bf636688207ce5aefa6f62][0m
+[0m[1mlocal_file.private_key: Refreshing state... [id=dab5f85d0c95b50f64251050378f5b0298611707][0m
+[0m[1maws_key_pair.task1_key: Refreshing state... [id=task1_key][0m
+[0m[1maws_security_group.allow_http_ssh: Refreshing state... [id=sg-052f67238982d9aad][0m
+[0m[1maws_instance.task1_instance: Refreshing state... [id=i-02703ab6cb46aa569][0m
+
+[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
+
+[0mTerraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+[0m[1m[32m
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0minstance_id = "i-02703ab6cb46aa569"
+instance_public_ip = "54.213.34.71"
