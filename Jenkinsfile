@@ -16,8 +16,8 @@ pipeline{
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPKEY],
                                  [password: AWSCRIPSECRET]]]) {
-          echo "UserKey: ${AWSCRIPKEY}"
-          echo "SecretKey: ${AWSCRIPSECRET}"
+          sh'echo "UserKey: ${AWSCRIPKEY}"'
+          sh'echo "SecretKey: ${AWSCRIPSECRET}"'
         }
       }
     }
