@@ -1,15 +1,14 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
-def AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
-  environment {
+  /* environment {
         AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-        //AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
-    }
+        AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+    } */
   stages{
-    stage('printvar'){
+    /* stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPSEC]]]) {
@@ -18,7 +17,7 @@ pipeline{
           sh 'echo $AWS_SECRET_ACCESS_KEY'
         }
       }
-    }
+    } */
     stage('Prework'){
       steps {
           sh '''
@@ -39,11 +38,8 @@ pipeline{
     stage('Terraform plan'){
       steps{
           sh'''
-          # export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
-          # echo $AWS_ACCESS_KEY_ID
-          # export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          # echo $AWS_SECRET_ACCESS_KEY
-          # terraform plan
+          ./sigue.sh
+          terraform plan
           '''
       }
     }
