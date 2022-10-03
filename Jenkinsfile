@@ -1,5 +1,6 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
+def MY_AWS_ACCESS_KEY_ID = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
 def MY_AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
@@ -13,7 +14,9 @@ pipeline{
     stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[password: MY_AWS_SECRET_ACCESS_KEY]]]) {
+              varPasswordPairs: [[accesskeyid: MY_AWS_ACCESS_KEY_ID],
+                                  [keyidsecret: MY_AWS_SECRET_ACCESS_KEY]]]) {
+          echo "userid: ${MY_AWS_ACCESS_KEY_ID}"
           echo "Password: ${MY_AWS_SECRET_ACCESS_KEY}"
         }
       }
