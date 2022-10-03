@@ -14,7 +14,8 @@ pipeline{
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPSEC]]]) {
           echo "Password: ${AWSCRIPSEC}"
-          sh 'echo ${AWSCRIPSEC} | base64 -d'
+          sh "export AWS_SECRET_ACCESS_KEY=`echo ${AWSCRIPSEC} | base64 -d`"
+          echo ${AWS_SECRET_ACCESS_KEY}
         }
       }
     }
