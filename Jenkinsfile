@@ -1,7 +1,7 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
-def AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-def AWSCRIPSECRET= 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+def AWSCRIPKEY='QUtJQVRETFo0VE4yUUhPMzJSSFkK'
+def AWSCRIPSECRET='bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
