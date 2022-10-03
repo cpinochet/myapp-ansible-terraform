@@ -1,7 +1,7 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
 def AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-// def MY_AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+def AWSCRIPSECRET= 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
@@ -14,7 +14,7 @@ pipeline{
     stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[password: AWSCRIPKEY]]]) {
+              varPasswordPairs: [[accesskeyid: AWSCRIPKEY]]]) {
           echo "UserKey: ${AWSCRIPKEY}"
         }
       }
