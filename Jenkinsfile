@@ -1,26 +1,30 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
-def AWSCRIPKEY='QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-def AWSCRIPSECRET='bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+// def AWSCRIPKEY='QUtJQVRETFo0VE4yUUhPMzJSSFkK'
+// def AWSCRIPSECRET='bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
+  environment {
+        AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
+        AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+    }
   stages{
     /* stage('SCM Checkout'){
       steps{
         git 'https://github.com/cpinochet/myapp-ansible'
       }
     } */
-    stage('printvar'){
+    /* stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPKEY],
-                                 [password: AWSCRIPSECRET]]]) {
-          sh'echo "UserKey: ${AWSCRIPKEY}"'
-          sh'echo "SecretKey: ${AWSCRIPSECRET}"'
+                                 [password: AWSCRIPSEC]]]) {
+          echo "UserKey: ${AWSCRIPKEY}"
+          echo "SecretKey: ${AWSCRIPSEC}"
         }
       }
-    }
+    } */
     stage('Prework'){
       steps {
           sh '''
@@ -41,7 +45,9 @@ pipeline{
       steps{
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
-          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSECRET | base64 -d)
+          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
+          echo $AWS_ACCESS_KEY_ID
+          echo $AWS_SECRET_ACCESS_KEY
           terraform plan
           '''
       }
