@@ -24,6 +24,7 @@ pipeline{
           echo -n "" > terra.log
           echo "$AWS_ACCESS_KEY_ID" | base64 -d > /tmp/test.txt
           cat /tmp/test.txt
+          echo "Password: ${AWS_SECRET_ACCESS_KEY}"
           '''
       }
     }
