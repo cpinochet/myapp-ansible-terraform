@@ -14,7 +14,7 @@ pipeline{
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPSEC]]]) {
           echo "Password: ${AWSCRIPSEC}"
-          sh "echo ${AWSCRIPSEC} | base64 -d"
+          sh 'echo ${AWSCRIPSEC} | base64 -d'
         }
       }
     }
