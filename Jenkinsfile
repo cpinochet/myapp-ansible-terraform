@@ -15,7 +15,7 @@ pipeline{
               varPasswordPairs: [[password: AWSCRIPSEC]]]) {
           echo "Password: ${AWSCRIPSEC}"
           sh "export AWS_SECRET_ACCESS_KEY=`echo ${AWSCRIPSEC} | base64 -d`"
-          echo ${AWS_SECRET_ACCESS_KEY}
+          echo "${AWS_SECRET_ACCESS_KEY}"
         }
       }
     }
