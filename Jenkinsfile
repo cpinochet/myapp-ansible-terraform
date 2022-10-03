@@ -1,6 +1,5 @@
 // Define secret variables
-def AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-def AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+// def SECRETKEY = 'secret'
 
 pipeline{
   agent any
@@ -45,11 +44,16 @@ pipeline{
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPKEY],
                                  [password: AWSCRIPSEC]]]) {
-          sh 'export AWS_ACCESS_KEY_ID=`echo "${AWSCRIPKEY}" | base64 -d`'
-          sh 'export AWS_SECRET_ACCESS_KEY=`echo "${AWSCRIPSEC}" | base64 -d`'
-          sh 'terraform plan'
+          echo "UserKey: ${AWSCRIPKEY}"
+          echo "SecretKey: ${AWSCRIPSEC}"
         }
-
+          sh'''
+          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
+          echo $AWS_ACCESS_KEY_ID
+          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
+          echo $AWS_SECRET_ACCESS_KEY
+          # terraform plan
+          '''
       }
     }
     /* stage('Terraform deploy'){
