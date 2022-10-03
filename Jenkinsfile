@@ -1,5 +1,6 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
+def AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
@@ -9,14 +10,14 @@ pipeline{
         git 'https://github.com/cpinochet/myapp-ansible'
       }
     } */
-    /* stage('printvar'){
+    stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[password: AWSCRIPKEY]]]) {
-          echo "Password: ${AWSCRIPKEY}"
+              varPasswordPairs: [[password: AWS_SECRET_ACCESS_KEY]]]) {
+          echo "Password: ${AWS_SECRET_ACCESS_KEY}"
         }
       }
-    } */
+    }
     stage('Prework'){
       steps {
           sh '''
