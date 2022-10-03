@@ -8,7 +8,6 @@ pipeline{
     stage('Prework'){
       steps {
           sh '''
-          echo -n "" > terra.log
           cp -f dev.inv-e dev.inv
           '''
       }
@@ -31,15 +30,17 @@ pipeline{
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
           export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          terraform apply --auto-approve | tee terra.log
+          terraform apply --auto-approve
+          sleep 30
           '''
       }
     }
     stage('post terra'){
       steps{
           sh'''
+          sleep 10
           echo "Updating ansible inventory file"
-          EC2IP=$(cat terra.log | grep instance_public_ip | tail -n 1 | awk -F'"' '{print $2}')
+          EC2IP=$(terraform output instance_public_ip | awk -F'"' '{print $2}')
           echo $EC2IP
           sed -i -e "s/EC2IP/${EC2IP}/g" dev.inv
           cat dev.inv
