@@ -13,8 +13,8 @@ pipeline{
     stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[password: AWS_SECRET_ACCESS_KEY]]]) {
-          echo "Password: ${AWS_SECRET_ACCESS_KEY}"
+              varPasswordPairs: [[password: MY_AWS_SECRET_ACCESS_KEY]]]) {
+          echo "Password: ${MY_AWS_SECRET_ACCESS_KEY}"
         }
       }
     }
