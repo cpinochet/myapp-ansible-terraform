@@ -34,7 +34,7 @@ resource "tls_private_key" "webit_private_key" {
 }
 resource "local_file" "private_key" {
   content         = tls_private_key.webit_private_key.private_key_pem
-  filename        = "webserver_key.pem"
+  filename        = "/tmp/webserver_key.pem"
   file_permission = 0400
 }
 resource "aws_key_pair" "t1_key" {
