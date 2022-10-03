@@ -22,10 +22,10 @@ pipeline{
     stage('Prework'){
       steps {
           sh '''
-          echo "accesskeyid: $(AWSCRIPKEY)"
-          echo "keyidsecret: ${MY_AWS_SECRET_ACCESS_KEY}"
+          echo "accesskeyid: $AWSCRIPKEY"
+          # echo "keyidsecret: ${MY_AWS_SECRET_ACCESS_KEY}"
           echo -n "" > terra.log
-          # export AWS_ACCESS_KEY_ID=$(echo ${MY_AWS_ACCESS_KEY_ID} | base64 -d)
+          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
           # export AWS_SECRET_ACCESS_KEY=$(echo ${MY_AWS_SECRET_ACCESS_KEY} | base64 -d)
           '''
       }
