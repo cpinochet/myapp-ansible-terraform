@@ -1,34 +1,22 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
+def AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
   environment {
         AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-        AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+        //AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
     }
   stages{
-    /* stage('printvar'){
+    stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[password: AWSCRIPKEY],
-                                 [password: AWSCRIPSEC]]]) {
-          echo "UserKey: ${AWSCRIPKEY}"
-          echo "SecretKey: ${AWSCRIPSEC}"
+              varPasswordPairs: [[password: AWSCRIPSEC]]]) {
+          echo "Password: ${AWSCRIPSEC}"
+          sh "echo ${AWSCRIPSEC}"
         }
       }
-    } */
-    stage('test withCredentials bug'){
-        steps {
-            withCredentials([usernameColonPassword(credentialsId: 'withCredentialsBug', variable: 'USER')]) {
-                sh "echo '$USER'"
-                sh './user.sh'
-            }    
-            withCredentials([usernameColonPassword(credentialsId: 'withCredentialsBug', variable: 'USRPWD')]) {
-                sh "echo '$USRPWD'"
-                sh './user.sh'
-            }
-        }
     }
     stage('Prework'){
       steps {
