@@ -1,6 +1,6 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
-def AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+def MY_AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
@@ -22,13 +22,12 @@ pipeline{
       steps {
           sh '''
           echo -n "" > terra.log
-          echo "$AWS_ACCESS_KEY_ID" | base64 -d > /tmp/test.txt
-          cat /tmp/test.txt
-          echo "Password: ${AWS_SECRET_ACCESS_KEY}"
+          export AWS_ACCESS_KEY_ID=$(echo $MY_AWS_ACCESS_KEY_ID | base64 -d)
+          export AWS_SECRET_ACCESS_KEY=$(echo $MY_AWS_SECRET_ACCESS_KEY | base64 -d)
           '''
       }
     }
-    /* stage('Terraform init'){
+    stage('Terraform init'){
       steps{
           sh'''
           terraform init
@@ -36,14 +35,14 @@ pipeline{
           terraform validate
           '''
       }
-    } */
-    /* stage('Terraform plan'){
+    }
+    stage('Terraform plan'){
       steps{
           sh'''
           terraform plan
           '''
       }
-    } */
+    }
     /* stage('Terraform deploy'){
       steps{
           sh'''
