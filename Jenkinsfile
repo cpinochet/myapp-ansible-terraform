@@ -35,7 +35,7 @@ pipeline{
           '''
       }
     }
-    /* stage('post terra'){
+    stage('post terra'){
       steps{
           sh'''
           echo "Updating ansible inventory file"
@@ -45,7 +45,7 @@ pipeline{
           cat dev.inv
           '''
       }
-    } */
+    }
     /* stage('Ansible Playbook'){
       steps{
           sh'''
