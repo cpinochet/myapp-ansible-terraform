@@ -50,7 +50,7 @@ pipeline{
       steps{
           sh'''
           # cd /var/lib/jenkins/workspace/ansible/ansible_demo
-          /usr/bin/ansible-playbook apache.yml -i dev.inv --private-key webserver_key.pem -u ec2-user
+          /usr/bin/ansible-playbook apache.yml -i dev.inv --private-key /tmp/webserver_key.pem -u ec2-user
           '''
       }
     }
