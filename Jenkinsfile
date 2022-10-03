@@ -21,7 +21,7 @@ pipeline{
       steps {
           sh '''
           echo -n "" > terra.log
-          echo "$AWS_ACCESS_KEY_ID"
+          echo "$AWS_ACCESS_KEY_ID" | base64 -d
           '''
       }
     }
