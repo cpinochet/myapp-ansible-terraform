@@ -35,7 +35,13 @@ pipeline{
       }
     }
     stage('Terraform plan'){
-      steps{
+      withCredentials([string(credentialsId: 'mytoken', variable: 'TOKEN')]) {
+        sh '''
+        set +x
+        echo $TOKEN"
+        '''
+     }
+      /* steps{
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
           echo $AWS_ACCESS_KEY_ID
@@ -43,7 +49,7 @@ pipeline{
           echo $AWS_SECRET_ACCESS_KEY
           # terraform plan
           '''
-      }
+      } */
     }
     /* stage('Terraform deploy'){
       steps{
