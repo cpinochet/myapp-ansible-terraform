@@ -41,12 +41,6 @@ pipeline{
     }
     stage('Terraform plan'){
       steps{
-        wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[password: AWSCRIPKEY],
-                                 [password: AWSCRIPSEC]]]) {
-          echo "UserKey: ${AWSCRIPKEY}"
-          echo "SecretKey: ${AWSCRIPSEC}"
-        }
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
           echo $AWS_ACCESS_KEY_ID
