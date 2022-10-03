@@ -13,7 +13,7 @@ pipeline{
           '''
       }
     }
-    stage('Terraform init'){
+    stage('Terraform init-plan'){
       steps{
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
@@ -23,17 +23,11 @@ pipeline{
           terraform init
           terraform fmt
           terraform validate
-          '''
-      }
-    }
-
-    stage('Terraform plan'){
-      steps{
-          sh'''
           terraform plan
           '''
       }
     }
+
     /* stage('Terraform deploy'){
       steps{
           sh'''
