@@ -45,12 +45,11 @@ pipeline{
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[password: AWSCRIPKEY],
                                  [password: AWSCRIPSEC]]]) {
-          sh'''
-          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
-          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          terraform plan
-          '''
+          sh 'export AWS_ACCESS_KEY_ID=`echo "${AWSCRIPKEY}" | base64 -d`'
+          sh 'export AWS_SECRET_ACCESS_KEY=`echo "${AWSCRIPSEC}" | base64 -d`'
+          sh 'terraform plan'
         }
+
       }
     }
     /* stage('Terraform deploy'){
