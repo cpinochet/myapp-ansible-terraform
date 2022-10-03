@@ -18,6 +18,18 @@ pipeline{
         }
       }
     } */
+    stage('test withCredentials bug'){
+        steps {
+            withCredentials([usernameColonPassword(credentialsId: 'withCredentialsBug', variable: 'USER')]) {
+                sh "echo '$USER'"
+                sh './user.sh'
+            }    
+            withCredentials([usernameColonPassword(credentialsId: 'withCredentialsBug', variable: 'USRPWD')]) {
+                sh "echo '$USRPWD'"
+                sh './user.sh'
+            }
+        }
+    }
     stage('Prework'){
       steps {
           sh '''
@@ -34,22 +46,21 @@ pipeline{
           '''
       }
     }
+
     stage('Terraform plan'){
-      withCredentials([string(credentialsId: 'mytoken', variable: 'TOKEN')]) {
-        sh '''
-        set +x
-        echo $TOKEN"
-        '''
-     }
-      /* steps{
+      steps{
           sh'''
-          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
-          echo $AWS_ACCESS_KEY_ID
-          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          echo $AWS_SECRET_ACCESS_KEY
+          export PASS=foo"'"bar
+          env|fgrep PASS
+          sh -xc 'echo $PASS'
+          bash -xc 'echo $PASS'
+          # export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
+          # echo $AWS_ACCESS_KEY_ID
+          # export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
+          # echo $AWS_SECRET_ACCESS_KEY
           # terraform plan
           '''
-      } */
+      }
     }
     /* stage('Terraform deploy'){
       steps{
