@@ -3,16 +3,11 @@
 
 pipeline{
   agent any
-  /* environment {
+  environment {
         AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
         AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
-    } */
+    }
   stages{
-    /* stage('SCM Checkout'){
-      steps{
-        git 'https://github.com/cpinochet/myapp-ansible'
-      }
-    } */
     /* stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
