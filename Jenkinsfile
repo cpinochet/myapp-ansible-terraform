@@ -1,7 +1,5 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
-// def AWSCRIPKEY='QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-// def AWSCRIPSECRET='bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
@@ -46,8 +44,6 @@ pipeline{
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
           export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          echo $AWS_ACCESS_KEY_ID
-          echo $AWS_SECRET_ACCESS_KEY
           terraform plan
           '''
       }
