@@ -15,9 +15,9 @@ pipeline{
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
               varPasswordPairs: [[accesskeyid: MY_AWS_ACCESS_KEY_ID],
-                                  [keyidsecret: MY_AWS_SECRET_ACCESS_KEY]]]) {
-          echo "userid: ${MY_AWS_ACCESS_KEY_ID}"
-          echo "Password: ${MY_AWS_SECRET_ACCESS_KEY}"
+                                 [keyidsecret: MY_AWS_SECRET_ACCESS_KEY]]]) {
+          echo "accesskeyid: ${MY_AWS_ACCESS_KEY_ID}"
+          echo "keyidsecret: ${MY_AWS_SECRET_ACCESS_KEY}"
         }
       }
     }
