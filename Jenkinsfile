@@ -1,7 +1,7 @@
 // Define secret variables
 // def SECRETKEY = 'secret'
-def MY_AWS_ACCESS_KEY_ID = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-def MY_AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+def AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
+// def MY_AWS_SECRET_ACCESS_KEY = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
 
 pipeline{
   agent any
@@ -11,20 +11,18 @@ pipeline{
         git 'https://github.com/cpinochet/myapp-ansible'
       }
     } */
-    /* stage('printvar'){
+    stage('printvar'){
       steps {
         wrap([$class: "MaskPasswordsBuildWrapper",
-              varPasswordPairs: [[accesskeyid: MY_AWS_ACCESS_KEY_ID],
-                                 [keyidsecret: MY_AWS_SECRET_ACCESS_KEY]]]) {
-          echo "accesskeyid: ${MY_AWS_ACCESS_KEY_ID}"
-          echo "keyidsecret: ${MY_AWS_SECRET_ACCESS_KEY}"
+              varPasswordPairs: [[password: AWSCRIPKEY]]]) {
+          echo "UserKey: ${AWSCRIPKEY}"
         }
       }
-    } */
+    }
     stage('Prework'){
       steps {
           sh '''
-          echo "accesskeyid: ${MY_AWS_ACCESS_KEY_ID}"
+          echo "accesskeyid: $(AWSCRIPKEY)"
           echo "keyidsecret: ${MY_AWS_SECRET_ACCESS_KEY}"
           echo -n "" > terra.log
           # export AWS_ACCESS_KEY_ID=$(echo ${MY_AWS_ACCESS_KEY_ID} | base64 -d)
