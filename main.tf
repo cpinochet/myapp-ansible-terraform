@@ -1,4 +1,12 @@
 terraform {
+
+  /* cloud {
+    organization = "crpinochet-org"
+    workspaces {
+      name = "learn-tfc-aws"
+    }
+  } */
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -6,25 +14,25 @@ terraform {
     }
   }
 
-  required_version = ">= 1.2.0"
+  required_version = ">= 0.14.9"
 }
 
 provider "aws" {
   region = "us-west-2"
 }
 
-resource "tls_private_key" "webt1_private_key" {
+resource "tls_private_key" "webit_private_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 resource "local_file" "private_key" {
-  content         = tls_private_key.webt1_private_key.private_key_pem
+  content         = tls_private_key.webit_private_key.private_key_pem
   filename        = "webserver_key.pem"
   file_permission = 0400
 }
-resource "aws_key_pair" "task1_key" {
-  key_name   = "task1_key"
-  public_key = tls_private_key.webt1_private_key.public_key_openssh
+resource "aws_key_pair" "t1_key" {
+  key_name   = "t1_key"
+  public_key = tls_private_key.webit_private_key.public_key_openssh
 }
 
 resource "aws_security_group" "allow_http_ssh" {
@@ -61,10 +69,10 @@ resource "aws_security_group" "allow_http_ssh" {
   }
 }
 
-resource "aws_instance" "task1_instance" {
+resource "aws_instance" "t1_inst" {
   ami               = "ami-08e2d37b6a0129927"
   instance_type     = "t2.micro"
-  key_name          = aws_key_pair.task1_key.key_name
+  key_name          = aws_key_pair.t1_key.key_name
   availability_zone = "us-west-2c"
   security_groups   = ["${aws_security_group.allow_http_ssh.name}"]
 
@@ -72,12 +80,12 @@ resource "aws_instance" "task1_instance" {
   connection {
     type        = "ssh"
     user        = "ec2-user"
-    host        = aws_instance.task1_instance.public_ip
+    host        = aws_instance.t1_inst.public_ip
     port        = 22
-    private_key = tls_private_key.webt1_private_key.private_key_pem
+    private_key = tls_private_key.webit_private_key.private_key_pem
   }
 
   tags = {
-    Name = "webserver_task1"
+    Name = var.instance_name
   }
 }
