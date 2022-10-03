@@ -17,9 +17,7 @@ pipeline{
       steps{
           sh'''
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
-          # echo $AWS_ACCESS_KEY_ID
           export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          # echo $AWS_SECRET_ACCESS_KEY
           terraform init
           terraform fmt
           terraform validate
@@ -28,13 +26,15 @@ pipeline{
       }
     }
 
-    /* stage('Terraform deploy'){
+    stage('Terraform deploy'){
       steps{
           sh'''
+          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
+          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
           terraform apply --auto-approve | tee terra.log
           '''
       }
-    } */
+    }
     /* stage('post terra'){
       steps{
           sh'''
