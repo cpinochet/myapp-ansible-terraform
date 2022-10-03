@@ -1,20 +1,25 @@
 pipeline{
   agent any
   environment {
-        AWSCRIPKEY = 'QUtJQVRETFo0VE4yUUhPMzJSSFkK'
-        AWSCRIPSEC = 'bitGZnU4TEQ2Yi82U0gxcVhNT09XclNNODNGNDh2QndiUVpvZ01MQgo='
+        AWSCRIPKEY = 'QUtJQVk1UVNIU0JUNlJJN1UzT1QK'
+        AWSCRIPSEC = 'Rll6ekx0dU1sNVc1RVRsRHZQemJnbmlHK2hCaUNEL21TVkZzR0NjUwo='
     }
   stages{
     stage('Prework'){
       steps {
           sh '''
           echo -n "" > terra.log
+          cp -f dev.inv-e dev.inv
           '''
       }
     }
     stage('Terraform init'){
       steps{
           sh'''
+          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
+          # echo $AWS_ACCESS_KEY_ID
+          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
+          # echo $AWS_SECRET_ACCESS_KEY
           terraform init
           terraform fmt
           terraform validate
@@ -25,10 +30,6 @@ pipeline{
     stage('Terraform plan'){
       steps{
           sh'''
-          export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
-          # echo $AWS_ACCESS_KEY_ID
-          export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
-          # echo $AWS_SECRET_ACCESS_KEY
           terraform plan
           '''
       }

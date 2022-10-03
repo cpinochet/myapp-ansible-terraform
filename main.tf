@@ -7,6 +7,13 @@ terraform {
     }
   } */
 
+  backend "s3" {
+    bucket         = "cpterraback"
+    key            = "terraform.tfstate"
+    region         = "us-west-2"
+    dynamodb_table = "cpterraback"
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
