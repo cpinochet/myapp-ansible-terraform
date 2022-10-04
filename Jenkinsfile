@@ -29,12 +29,12 @@ pipeline{
 
     stage("Stage with input") {
     steps {
-      def userInput = false
+      def userinput = false
         script {
-            def userInput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
-            echo 'userInput: ' + userInput
+            def userinput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
+            echo 'userinput: ' + userinput
 
-            if(userInput == true) {
+            if(userinput == true) {
                 // do action
             } else {
                 // not do action
