@@ -27,24 +27,6 @@ pipeline{
       }
     }
 
-    stage("Stage with input") {
-    steps {
-      def userinput = false
-        script {
-            def userinput = input(id: 'Proceed1', message: 'Promote build?', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']])
-            echo 'userinput: ' + userinput
-
-            if(userinput == true) {
-                // do action
-            } else {
-                // not do action
-                echo "Action was aborted."
-                sh 'exit 1'
-            }
-        }    
-    }  
-}
-
     stage('Terraform deploy'){
       steps{
           sh'''
