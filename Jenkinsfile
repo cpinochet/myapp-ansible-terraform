@@ -27,9 +27,14 @@ pipeline{
       }
     }
 
+    stage('Deploy approval'){
+    input "Deploy to prod?"
+    }
+
     stage('Terraform deploy'){
       steps{
           sh'''
+          echo "Deployng..."
           export AWS_ACCESS_KEY_ID=$(echo $AWSCRIPKEY | base64 -d)
           export AWS_SECRET_ACCESS_KEY=$(echo $AWSCRIPSEC | base64 -d)
           terraform apply --auto-approve
